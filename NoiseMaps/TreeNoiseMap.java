@@ -16,6 +16,6 @@ public class TreeNoiseMap {
 
         double spreadValue = (Noise.noise(x/spreadResolution, Globals.SEED/spreadResolution, y/spreadResolution) + 1)/2;
 
-        return spreadValue > .7;
+        return spreadValue > .6;
     }
 }
