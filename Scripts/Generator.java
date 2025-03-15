@@ -61,7 +61,7 @@ public class Generator extends WritableScript {
                     Image2D tree = templateTree.Clone();
                     tree.Visible = true;
                     tree.ZIndex = block.ZIndex + 500;
-                    tree.Position = block.Position;
+                    tree.Position = block.Position.add(7, -30);
                     tree.SetParent(game.WorldNode);
                 } else if (Math.random() > .99) {
                     block.SetImage("Assets\\Decorated\\BlockStones1.png");
