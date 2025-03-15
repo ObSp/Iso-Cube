@@ -3,50 +3,22 @@ package Scripts;
 import JGamePackage.JGame.Classes.Scripts.Writable.WritableScript;
 import JGamePackage.JGame.Classes.World.Image2D;
 import JGamePackage.JGame.Types.PointObjects.Vector2;
+import NoiseMaps.SandNoiseMap;
+import NoiseMaps.TreeNoiseMap;
+import NoiseMaps.WaterNoiseMap;
 
 public class Generator extends WritableScript {
-    Vector2 moveRight = new Vector2(42.875 , -22);
-    Vector2 moveLeft = new Vector2(-42.875 , -22);
+    double blockSize = 100;
+
+    Vector2 moveRight = new Vector2(42.875 , -22).multiply(blockSize/100.0);
+    Vector2 moveLeft = new Vector2(-moveRight.X , moveRight.Y);
     
     @Override
     public void Start() {
         Image2D template = game.StorageNode.<Image2D>GetChild("TemplateBlock");
         template.SetImage("Assets\\BlockLowOutline.png");
-        
-        /**Vector2 lastPos = null;
-        Image2D firstBlock = null;
 
-        for (int i = -5; i < 5; i++) {
-            Image2D newBlock = block.Clone();
-
-            Vector2 pos;
-            if (lastPos == null) {
-                firstBlock = newBlock;
-                pos = Vector2.zero;
-            } else {
-                pos = lastPos.add(moveRight);
-            }
-
-            
-            newBlock.Position = pos;
-            newBlock.ZIndex = -i;
-            newBlock.SetParent(game.WorldNode);
-
-            lastPos = pos;
-        }
-
-        lastPos = firstBlock.Position;
-
-        for (int i = 0; i < 9; i++) {
-            Image2D newBlock = block.Clone();
-
-            Vector2 pos = lastPos.add(moveLeft);
-            newBlock.Position = pos;
-            newBlock.ZIndex = -i;
-            newBlock.SetParent(game.WorldNode);
-
-            lastPos = pos;
-        }**/
+        Image2D templateTree = game.WorldNode.<Image2D>GetChild("TemplateTree");
 
         
         Vector2 lastLayerStart = null;
@@ -62,7 +34,7 @@ public class Generator extends WritableScript {
                 if (lastBlockPos == null) {
 
                     if (lastLayerStart == null) {
-                        pos = Vector2.zero.subtract(0, layer * 100);
+                        pos = Vector2.zero.subtract(0, layer * blockSize);
                     } else {
                         pos = lastLayerStart.add(moveLeft);
                     }
@@ -74,10 +46,27 @@ public class Generator extends WritableScript {
                 }
 
                 Image2D block = template.Clone();
-                block.ZIndex = layerZIndex - i;
+                block.ZIndex = (int) pos.Y; //layerZIndex - i;
                 block.Position = pos;
+                block.Size = new Vector2(blockSize);
 
                 lastBlockPos = block.Position;
+
+                if (WaterNoiseMap.IsPointWater(i, layer)) {
+                    block.SetImage("Assets\\WaterOutline.png");
+                    block.Position = block.Position.add(0, 25);
+                } else if (SandNoiseMap.IsPointSand(i, layer)) {
+                    block.SetImage("Assets\\Sand.png");
+                } else if (TreeNoiseMap.ShouldGenerateTree(i, layer)) {
+                    Image2D tree = templateTree.Clone();
+                    tree.Visible = true;
+                    tree.ZIndex = block.ZIndex + 500;
+                    tree.Position = block.Position;
+                    tree.SetParent(game.WorldNode);
+                    System.out.println("tree");
+                } else if (Math.random() > .99) {
+                    block.SetImage("Assets\\Decorated\\BlockStones1.png");
+                }
 
                 block.SetParent(game.WorldNode);
             }
