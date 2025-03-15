@@ -7,12 +7,13 @@ import JGamePackage.JGame.Classes.UI.UIFrame;
 import JGamePackage.JGame.Classes.World.Box2D;
 import JGamePackage.JGame.Types.PointObjects.UDim2;
 import JGamePackage.JGame.Types.PointObjects.Vector2;
+import JGamePackage.JGame.Types.StartParams.StartParams;
 import NoiseMaps.TreeNoiseMap;
 import NoiseMaps.WaterNoiseMap;
 import Scripts.Generator;
 
 public class IsoCube {
-    static JGame game = new JGame();
+    static JGame game = new JGame(new StartParams(true, true, false));
 
     private static void visualizeNoiseMap() {
         game.Camera.Position = new Vector2(500);
@@ -34,7 +35,7 @@ public class IsoCube {
 
         UIFrame tint = new UIFrame();
         tint.BackgroundColor = new Color(255, 204, 102);
-        tint.BackgroundTransparency = .85;
+        tint.BackgroundTransparency = .9;
         tint.Size = UDim2.fromScale(1, 1);
         tint.SetParent(game.UINode);
 

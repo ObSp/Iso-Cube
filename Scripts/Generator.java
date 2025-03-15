@@ -63,7 +63,6 @@ public class Generator extends WritableScript {
                     tree.ZIndex = block.ZIndex + 500;
                     tree.Position = block.Position;
                     tree.SetParent(game.WorldNode);
-                    System.out.println("tree");
                 } else if (Math.random() > .99) {
                     block.SetImage("Assets\\Decorated\\BlockStones1.png");
                 }
