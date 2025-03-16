@@ -41,8 +41,10 @@ public class GeneratorRemake extends WritableScript {
         for (int x = 0; x < mapSize; x++) {
             for (int y = 0; y < mapSize; y++) {
                 Image2D block = template.Clone();
-                block.Position = GetIsoPositionFromGridPosition(x, y);
+                block.Position = GetIsoPositionFromGridPosition(x, y).add(0, (Math.random() - .5) * 25);
                 block.SetParent(container);
+
+                TileManager.PutTileAtPosition(x, y, block);
 
                 block.ZIndex = (x + y);
             }

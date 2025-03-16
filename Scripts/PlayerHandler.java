@@ -2,34 +2,25 @@ package Scripts;
 
 import JGamePackage.JGame.Classes.Scripts.Writable.WritableScript;
 import JGamePackage.JGame.Classes.World.Image2D;
-import JGamePackage.JGame.Classes.World.WorldBase;
 import JGamePackage.JGame.Types.PointObjects.Vector2;
 import Other.TileManager;
 
 public class PlayerHandler extends WritableScript {
     Image2D hoverEffect;
-    Vector2 gridSize = new Vector2(42.875, 22);
 
-    private double snapToGrid(double x, double blockSize) {
-	    return Math.floor((x+(blockSize/2))/blockSize)*blockSize;
-    }
-
-    private Vector2 snapToGrid(Vector2 x) {
-        return new Vector2(snapToGrid(x.X, gridSize.X), snapToGrid(x.Y, gridSize.Y));
-    }
 
     @Override
     public void Start() {
         hoverEffect = game.WorldNode.<Image2D>GetChild("HoverEffect");
-        
+        game.Camera.Position = game.Camera.Position.add(0, 250);
     }
     
     @Override
     public void Tick(double dt) {
-        Vector2 mousePos = game.InputService.GetMouseWorldPosition().subtract(hoverEffect.Size.X/2, 25);
+        Vector2 mousePos = game.InputService.GetMouseWorldPosition();//.subtract(hoverEffect.Size.X/2, 25);
 
-        int tileX = (int) ((mousePos.X / gridSize.X + mousePos.Y / gridSize.Y) /2);
-        int tileY = (int) ((mousePos.Y / gridSize.Y -(mousePos.X / gridSize.X)) /2);
+        int tileX = (int) ((mousePos.X / 25 + mousePos.Y / 25) /2);
+        int tileY = (int) ((mousePos.Y / 25 -(mousePos.X / 25)) /2);
 
         Image2D tile = TileManager.GetTileAtPosition(tileX, tileY);
         if (tile == null) {
