@@ -25,7 +25,8 @@ public class GeneratorRemake extends WritableScript {
 
     private void generate() {
         Image2D template = game.StorageNode.<Image2D>GetChild("TemplateBlock");
-        template.SetImage("Assets\\BlockLowOutlineSCALED.png");
+        template.SetImage("Assets\\NewBlock.png");
+        template.Size = new Vector2(100);
 
         Image2D templateTree = game.WorldNode.<Image2D>GetChild("TemplateTree");
         Image2D templateTreeShadow = game.WorldNode.<Image2D>GetChild("TemplateTreeShadow");
@@ -36,7 +37,6 @@ public class GeneratorRemake extends WritableScript {
         container.SetParent(game.WorldNode);
 
         int mapSize = 10;
-
         
         for (int x = 0; x < mapSize; x++) {
             for (int y = 0; y < mapSize; y++) {
