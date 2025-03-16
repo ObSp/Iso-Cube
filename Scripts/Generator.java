@@ -26,13 +26,22 @@ public class Generator extends WritableScript {
         Image2D templateTree = game.WorldNode.<Image2D>GetChild("TemplateTree");
         Image2D templateTreeShadow = game.WorldNode.<Image2D>GetChild("TemplateTreeShadow");
 
+        templateTree.SetImage("Assets\\Tree.png");
+        templateTreeShadow.SetImage("Assets\\TreeShadow.png");
+
         
         Vector2 lastLayerStart = null;
 
-        Box2D container = new Box2D();
-        container.Transparency = 1.0;
-        container.Name = "Container";
-        container.SetParent(game.WorldNode);
+        Box2D blockLayer = new Box2D();
+        blockLayer.Transparency = 1.0;
+        blockLayer.Name = "BlockLayer";
+        blockLayer.SetParent(game.WorldNode);
+
+        Box2D entityDecorationLayer = new Box2D();
+        entityDecorationLayer.Transparency = 1.0;
+        entityDecorationLayer.Name = "EntityDecorationLayer";
+        entityDecorationLayer.ZIndex = 10;
+        entityDecorationLayer.SetParent(game.WorldNode);
 
         for (int layer = -15; layer < 45; layer++) {
 
@@ -56,7 +65,7 @@ public class Generator extends WritableScript {
                 }
 
                 Image2D block = template.Clone();
-                block.ZIndex = (int) pos.Y; //layerZIndex - i;
+                block.ZIndex = -(layer + i);
                 block.Position = pos;
                 block.Size = new Vector2(blockSize);
 
@@ -70,15 +79,15 @@ public class Generator extends WritableScript {
                 } else if (TreeNoiseMap.ShouldGenerateTree(i, layer)) {
                     Image2D tree = templateTree.Clone();
                     tree.Visible = true;
-                    tree.ZIndex = block.ZIndex + 500;
                     tree.Position = block.Position.add(50, 35);
-                    tree.SetParent(container);
+                    tree.ZIndex = (int) tree.Position.Y;
+                    tree.SetParent(entityDecorationLayer);
 
                     Image2D treeShadow = templateTreeShadow.Clone();
                     treeShadow.Visible = true;
                     treeShadow.ZIndex = tree.ZIndex - 1;
                     treeShadow.Position = tree.Position.add(treeShadowOffset);
-                    treeShadow.SetParent(container);
+                    treeShadow.SetParent(entityDecorationLayer);
                 } else if (Math.random() > .99) {
                     block.SetImage("Assets\\Decorated\\BlockStones1.png");
                 } else if (Math.random() > .98) {
@@ -98,7 +107,7 @@ public class Generator extends WritableScript {
                 block.SetCProp("ImagePath", block.GetImagePath());
                 TileManager.PutTileAtPosition(i, layer, block);
 
-                block.SetParent(container);
+                block.SetParent(blockLayer);
             }
         }
     }

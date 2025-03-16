@@ -75,7 +75,8 @@ public class ScriptService extends Service {
 
     private void runScriptsOnTick(double dt) {
         for (WritableScript script : loadedWritables) {
-            new Thread(()->script.Tick(dt)).start();
+            script.Tick(dt);
+            //new Thread(()->script.Tick(dt)).start();
         }
     }
 
