@@ -11,6 +11,7 @@ import JGamePackage.JGame.Types.StartParams.StartParams;
 import NoiseMaps.TreeNoiseMap;
 import NoiseMaps.WaterNoiseMap;
 import Scripts.Generator;
+import Scripts.GeneratorRemake;
 import Scripts.PlayerHandler;
 
 public class IsoCube {
@@ -41,7 +42,7 @@ public class IsoCube {
         tint.SetParent(game.UINode);
 
         new Script(PlayerHandler.class).SetParent(game.ScriptNode);
-        new Script(Generator.class).SetParent(game.ScriptNode);
+        new Script(GeneratorRemake.class).SetParent(game.ScriptNode);
         
         game.InputService.OnKeyPress.Connect(kv ->{
             if (kv.getKeyCode() == KeyEvent.VK_DELETE) {

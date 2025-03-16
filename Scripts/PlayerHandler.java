@@ -21,20 +21,11 @@ public class PlayerHandler extends WritableScript {
     @Override
     public void Start() {
         hoverEffect = game.WorldNode.<Image2D>GetChild("HoverEffect");
+        
     }
     
     @Override
     public void Tick(double dt) {
-        /*WorldBase target = game.InputService.GetMouseWorldTarget();
-        if (target == null || !(target instanceof Image2D) || !target.Name.equals("TemplateBlock")) {
-            hoverEffect.Visible = false;
-            return;
-        }
-        hoverEffect.Visible = true;
-        hoverEffect.Position = target.Position;
-
-        hoverEffect.ZIndex = target.ZIndex + 2; */
-
         Vector2 mousePos = game.InputService.GetMouseWorldPosition().subtract(hoverEffect.Size.X/2, 25);
 
         int tileX = (int) ((mousePos.X / gridSize.X + mousePos.Y / gridSize.Y) /2);
