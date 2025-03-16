@@ -11,6 +11,7 @@ import JGamePackage.JGame.Types.StartParams.StartParams;
 import NoiseMaps.TreeNoiseMap;
 import NoiseMaps.WaterNoiseMap;
 import Scripts.Generator;
+import Scripts.PlayerHandler;
 
 public class IsoCube {
     static JGame game = new JGame(new StartParams(true, true, false));
@@ -39,6 +40,7 @@ public class IsoCube {
         tint.Size = UDim2.fromScale(1, 1);
         tint.SetParent(game.UINode);
 
+        new Script(PlayerHandler.class).SetParent(game.ScriptNode);
         new Script(Generator.class).SetParent(game.ScriptNode);
         
         game.InputService.OnKeyPress.Connect(kv ->{

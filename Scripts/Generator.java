@@ -10,6 +10,7 @@ import NoiseMaps.SandNoiseMap;
 import NoiseMaps.TreeNoiseMap;
 import NoiseMaps.WaterNoiseMap;
 import Other.Globals;
+import Other.TileManager;
 
 public class Generator extends WritableScript {
     double blockSize = 100;
@@ -93,6 +94,9 @@ public class Generator extends WritableScript {
                 } else if (Math.random() > .995) {
                     block.SetImage("Assets\\Decorated\\BlockPlants5.png");
                 }
+
+                block.SetCProp("ImagePath", block.GetImagePath());
+                TileManager.PutTileAtPosition(i, layer, block);
 
                 block.SetParent(container);
             }
