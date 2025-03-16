@@ -2,6 +2,6 @@ package Other;
 
 public class Globals {
     
-    public static final int SEED = (int) (Math.random() * 10000);
+    public static int SEED = (int) (Math.random() * 10000);
 
 }
