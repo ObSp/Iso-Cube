@@ -10,6 +10,7 @@ import JGamePackage.JGame.Types.PointObjects.Vector2;
 import JGamePackage.JGame.Types.StartParams.StartParams;
 import NoiseMaps.TreeNoiseMap;
 import NoiseMaps.WaterNoiseMap;
+import NoiseMaps.SandNoiseMap;
 import Scripts.Generator;
 import Scripts.GeneratorRemake;
 import Scripts.PlayerHandler;
@@ -24,7 +25,7 @@ public class IsoCube {
             for (int y = 0; y < 100; y++) {
                 Box2D b = new Box2D();
                 b.Size = new Vector2(10);
-                b.FillColor = TreeNoiseMap.ShouldGenerateTree(x, y) ? Color.black : Color.white;
+                b.FillColor = SandNoiseMap.IsPointSand(x, y) ? Color.black : Color.white;
                 b.Position = new Vector2(x, y).multiply(10);
                 b.SetParent(game.WorldNode);
             }
@@ -40,6 +41,8 @@ public class IsoCube {
         tint.BackgroundTransparency = 1;
         tint.Size = UDim2.fromScale(1, 1);
         tint.SetParent(game.UINode);
+
+        //visualizeNoiseMap();
 
         new Script(PlayerHandler.class).SetParent(game.ScriptNode);
         new Script(Generator.class).SetParent(game.ScriptNode);
