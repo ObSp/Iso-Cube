@@ -43,6 +43,12 @@ public class Generator extends WritableScript {
         entityDecorationLayer.ZIndex = 10;
         entityDecorationLayer.SetParent(game.WorldNode);
 
+        Box2D shadowLayer = new Box2D();
+        shadowLayer.Transparency = 1.0;
+        shadowLayer.Name = "ShadowLayer";
+        shadowLayer.ZIndex = 8;
+        shadowLayer.SetParent(game.WorldNode);
+
         for (int layer = -15; layer < 45; layer++) {
 
             Vector2 lastBlockPos = null;
@@ -85,9 +91,9 @@ public class Generator extends WritableScript {
 
                     Image2D treeShadow = templateTreeShadow.Clone();
                     treeShadow.Visible = true;
-                    treeShadow.ZIndex = tree.ZIndex - 1;
+                    treeShadow.ZIndex = tree.ZIndex;
                     treeShadow.Position = tree.Position.add(treeShadowOffset);
-                    treeShadow.SetParent(entityDecorationLayer);
+                    treeShadow.SetParent(shadowLayer);
                 } else if (Math.random() > .99) {
                     block.SetImage("Assets\\Decorated\\BlockStones1.png");
                 } else if (Math.random() > .98) {
@@ -118,7 +124,9 @@ public class Generator extends WritableScript {
 
         game.InputService.OnKeyPress.Connect(kv ->{
             if (kv.getKeyCode() == KeyEvent.VK_R) {
-                game.WorldNode.GetChild("Container").Destroy();
+                game.WorldNode.GetChild("BlockLayer").Destroy();
+                game.WorldNode.GetChild("EntityDecorationLayer").Destroy();
+                game.WorldNode.GetChild("ShadowLayer").Destroy();
                 Globals.SEED = (int) (Math.random() * 1000000);
                 new Thread(this::generate).start();
             }
