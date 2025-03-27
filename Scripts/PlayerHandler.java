@@ -3,8 +3,6 @@ package Scripts;
 import JGamePackage.JGame.Classes.Scripts.Writable.WritableScript;
 import JGamePackage.JGame.Classes.World.Image2D;
 import JGamePackage.JGame.Classes.World.WorldBase;
-import JGamePackage.JGame.Types.PointObjects.Vector2;
-import Other.TileManager;
 
 public class PlayerHandler extends WritableScript {
     Image2D hoverEffect;

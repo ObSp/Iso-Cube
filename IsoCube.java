@@ -8,16 +8,14 @@ import JGamePackage.JGame.Classes.World.Box2D;
 import JGamePackage.JGame.Types.PointObjects.UDim2;
 import JGamePackage.JGame.Types.PointObjects.Vector2;
 import JGamePackage.JGame.Types.StartParams.StartParams;
-import NoiseMaps.TreeNoiseMap;
-import NoiseMaps.WaterNoiseMap;
 import NoiseMaps.SandNoiseMap;
 import Scripts.Generator;
-import Scripts.GeneratorRemake;
 import Scripts.PlayerHandler;
 
 public class IsoCube {
     static JGame game = new JGame(new StartParams(true, true, false));
 
+    @SuppressWarnings("unused")
     private static void visualizeNoiseMap() {
         game.Camera.Position = new Vector2(500);
         for (int x = 0; x < 100; x++) {

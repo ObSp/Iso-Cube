@@ -1,6 +1,5 @@
 package Other;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import JGamePackage.JGame.Classes.World.Image2D;
