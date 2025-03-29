@@ -38,7 +38,7 @@ public class IsoCube {
         tint.BackgroundColor = new Color(255, 204, 102);
         tint.BackgroundTransparency = 1;
         tint.Size = UDim2.fromScale(1, 1);
-        tint.SetParent(game.UINode);
+        //tint.SetParent(game.UINode);
 
         //visualizeNoiseMap();
 
